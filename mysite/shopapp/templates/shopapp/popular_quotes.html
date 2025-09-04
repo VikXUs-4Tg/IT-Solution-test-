@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Популярные цитаты</title>
+</head>
+<body>
+    <h1>10 самых популярных цитат</h1>
+    <ul>
+        {% for quote in quotes %}
+            <li>Популярность:{{ quote.likes }} "{{ quote.text }}" - {{ quote.source.name }} &#128065 {{ quote.impressions}} | &#128077 {{ quote.likes }} | &#128078 {{ quote.dislikes }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'index' %}">Вернуться на главную страницу</a>
+</body>
+</html>

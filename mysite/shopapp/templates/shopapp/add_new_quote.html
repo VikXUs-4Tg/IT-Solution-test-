@@ -2,25 +2,38 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Главная страница{% endblock %}</title>
+    <title>Добавить цитату</title>
+    <style>
+    #weight {
+        width: 4em; /* Ширина поля ввода */
+    }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>{{ quote.text }}</h1>
-    </header>
-    <div class="content">
-    <p><strong>Источник: {{ quote.source }}</strong></p>
-    <p>&#128065 {{ quote.impressions}} | &#128077 {{ quote.likes }} | &#128078 {{ quote.dislikes }}</p>
+    <h1>Добавить новую цитату</h1>
     <form method="post">
         {% csrf_token %}
-        <button type="submit" name="like" value="{{ quote.id }}">Like</button>
-        <button type="submit" name="dislike" value="{{ quote.id }}">Dislike</button>
+        <label for="text">Укажите текст цитаты:</label>
+        <input type="text" size="100" name="text" id="text" required><br>
+        {% if text_error %}
+            <p style="color: red; display: inline;">{{ text_error }}</p>
+            <br>
+        {% else %}
+            <br />
+        {% endif %}
+        <label for="source">Укажите источник цитаты:</label>
+        <input type="text" size="100" name="source" id="source" required><br>
+        {% if source_error %}
+            <p style="color: red; display: inline;">{{ source_error }}</p>
+            <br>
+        {% else %}
+            <br />
+        {% endif %}
+        <label for="weight">Укажите вес цитаты:</label>
+        <input type="number" name="weight" id="weight" value="1" required><br>
+        <br />
+        <button type="submit">Добавить</button>
     </form>
-    </div>
-    <br />
-    <a href="{% url 'add_new_quote' %}">Добавить новую цитату</a>
-    <br />
-    <p><a href="{% url 'popular_quotes' %}">Посмотреть 10 самых популярных цитат</a></p>
     <footer>
         <br />
         <p>Цель: сделать с помощью Django страницу, где при каждом открытии будет отображаться случайная цитата из фильма или книги</p>
@@ -39,11 +52,3 @@
     </footer>
 </body>
 </html>
-
-            <!--
-        {% block content %}
-        {% for product in products %}
-            <p>{{ product }}</p>
-        {% endfor %}
-    {% endblock %}
--->
