@@ -8,6 +8,10 @@ class Quote(models.Model):
     likes = models.IntegerField(default=0)  # Количество лайков
     dislikes = models.IntegerField(default=0)  # Количество дизлайков
 
+    @property
+    def popularity(self):
+        return self.likes - self.dislikes
+
     def __str__(self):
         return self.text
 

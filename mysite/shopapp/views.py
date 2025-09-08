@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Quote, Source
+
 import random
 
 def random_quote_view(request):
@@ -46,5 +47,7 @@ def add_new_quote(request):
     return render(request, 'shopapp/add_new_quote.html')
 
 def popular_quotes(request):
-    quotes = Quote.objects.filter(likes__gt=0).order_by('-likes', 'dislikes')[:10]
+    quotes = Quote.objects.all()
+    quotes = sorted(quotes, key=lambda q: q.popularity, reverse=True)
+    quotes = [q for q in quotes if q.popularity > 0][:10]
     return render(request, 'shopapp/popular_quotes.html', {'quotes': quotes})

@@ -7,9 +7,12 @@
     <h1>10 самых популярных цитат</h1>
     <ul>
         {% for quote in quotes %}
-            <li>Популярность:{{ quote.likes }} "{{ quote.text }}" - {{ quote.source.name }} &#128065 {{ quote.impressions}} | &#128077 {{ quote.likes }} | &#128078 {{ quote.dislikes }}</li>
+            <li>&#128151 {{ quote.popularity }} "{{ quote.text }}" - {{ quote.source.name }} &#128065 {{ quote.impressions}} | &#128077 {{ quote.likes }} | &#128078 {{ quote.dislikes }}</li>
         {% endfor %}
     </ul>
+
     <a href="{% url 'index' %}">Вернуться на главную страницу</a>
+
+    {% include 'footer.html' %}
 </body>
 </html>
