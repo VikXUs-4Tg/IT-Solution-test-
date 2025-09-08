@@ -14,8 +14,9 @@ def random_quote_view(request):
     quotes = Quote.objects.all()
     random_quote = random.choices(quotes, weights=[quote.weight for quote in quotes])[0]
     #Реализация счётчика показов
-    random_quote.impressions += 1
-    random_quote.save()
+    if request.method == 'GET':
+        random_quote.impressions += 1
+        random_quote.save()
     # Алгоритм обработки выставления оценки пользователем
     if request.method == 'POST':
         quote_id = request.POST.get('like') or request.POST.get('dislike')
